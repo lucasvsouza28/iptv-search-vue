@@ -3,13 +3,14 @@
     <v-app-bar
       app
       clipped-left
-      color="blue"
+      color="indigo"
     >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <span class="title ml-3 mr-5">IPTV&nbsp;<span class="font-weight-light">Search</span></span>
+      <span class="title ml-3 mr-5 white--text">IPTV&nbsp;<span class="font-weight-light">Search</span></span>
       <v-text-field        
-        flat
+        solo
         hide-details
+        class="white--text"
         v-model="query"
         v-on:keyup.enter="doSearch"
       ></v-text-field>
@@ -75,41 +76,10 @@
     <v-content>
       <v-container
         fluid
-        class="grey lighten-4 fill-height"
+        class="grey lighten-4"
       >
-        <v-row
-          justify="center"
-          align="center"
-        >
-
-
-        
-
-        <div v-if="!searchResult || (searchResult && !searchResult.groups)">Nenhum item encontrado</div>
-        <div v-else>
-          <v-flex v-for="(group, index) in searchResult.groups" :key="`group-${index}`">
-            <v-subheader>{{ group.groupName }}</v-subheader>
-            <v-card
-                class="mx-auto"
-                :outlined="true"
-                :raised="true"
-                v-for="(item, index_i) in group.Items" :key="`item-${index_i}`"
-                width="22%"
-              >
-                <v-img
-                  v-if="item.imgUrl"
-                  class="white--text"
-                  height="200px"
-                  src="item.imgUrl.trim()"
-                >
-                  <v-card-title class="align-end fill-height">{{ item.title }} - {{ item.imgUrl }}</v-card-title>
-                </v-img>            
-              </v-card>
-              <v-divider />
-          </v-flex>          
-        </div>
-        
-
+        <v-row align="center">
+          <SearchResult :data="searchResult"></SearchResult>
         </v-row>
       </v-container>
     </v-content>
@@ -117,17 +87,16 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 const axios = require('axios');
-import HelloWorld from './components/HelloWorld.vue';
+import Vue from 'vue';
+import SearchResult from './components/SearchResult.vue';
 
 export default Vue.extend({
   name: 'App',
   components: {
-    HelloWorld,
+    SearchResult
   },
-  async mounted() {
-    
+  async mounted() {    
   },
   methods: {
     doSearch: async function() {
@@ -141,7 +110,7 @@ export default Vue.extend({
     url: 'http://clubsrv.me/get.php?username=1drM3Cdf3&password=fireurl.co&output=ts&type=m3u_plus',
     searchResult: null,
 
-    drawer: null,
+    drawer: false,
       items: [        
       ],
   }),

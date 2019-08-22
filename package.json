@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build:ui": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev:api": "ts-node-dev --transpileOnly --respawn ./api/src/program.ts",
+    "dev:api": "ts-node-dev --transpileOnly --respawn --project ./api/tsconfig.json ./api/src/program.ts",
     "build:api": "tsc -p ./api/tsconfig.json",
     "serve:api": "tsc -p ./api/tsconfig.json && nodemon ./dist/api/program.js"
   },
