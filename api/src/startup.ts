@@ -16,6 +16,8 @@ class StartUp {
     middlewares(): void {
         this.App.use(express.json());
         this.App.use(express.urlencoded({ extended: true }));
+        
+        this.App.set('views', '../../dist/');
 
         // habilita CORS
         this.App.use(function(req, res, next) {
