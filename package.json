@@ -9,7 +9,7 @@
     "dev:api": "ts-node-dev --transpileOnly --respawn --project ./api/tsconfig.json ./api/src/program.ts",
     "build:api": "tsc -p ./api/tsconfig.json",
     "serve:api": "tsc -p ./api/tsconfig.json && nodemon ./dist/api/program.js",
-    "start": "npm run build:api && npm run build:ui && nodemon ./dist/api/program.js"
+    "start": "npm run build:api && npm run build:ui && node ./dist/api/program.js"
   },
   "dependencies": {
     "@types/node": "^12.7.2",
