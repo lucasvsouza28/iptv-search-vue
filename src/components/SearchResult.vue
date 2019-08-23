@@ -9,7 +9,7 @@
             <v-row>
 
                 <v-card
-                    class="d-inline-flex pa-2 ml-4"
+                    class="d-inline-flex ml-4"
                     v-for="(item, j) in group.Items" :key="`item-${j}`"
                     width="200px"
                     tile
