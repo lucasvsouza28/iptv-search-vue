@@ -1,5 +1,7 @@
 <template>
-    <v-row align="center" justify="center" v-if="!data || (data && !data.groups.length)"><v-icon>fa-cogs</v-icon> Nenhum item encontrado</v-row>
+    <v-row align="center" justify="center" v-if="!data || (data && !data.groups.length)">
+        <v-icon>sentiment_dissatisfied</v-icon> Nenhum item encontrado
+    </v-row>
     <div style="width: 100%;" v-else>
         <v-row v-for="(group, i) in data.groups" :key="`group-${i}`">
         <v-subheader class="headline">{{ group.groupName }}</v-subheader>
@@ -12,8 +14,6 @@
                     width="200px"
                     tile
                 >
-                    <!-- <img :src="item.imgUrl" @error="setFallbackUrl(this)" height="80px" class="white--text"/> -->
-
                     <v-img
                     v-if="item.imgUrl"
                     class="white--text"

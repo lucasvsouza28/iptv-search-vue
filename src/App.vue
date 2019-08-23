@@ -57,7 +57,7 @@
     </v-alert>
 
     <v-row justify="center">
-      <v-dialog v-model="showDialog" persistent max-width="600px">
+      <v-dialog v-model="showDialog" max-width="600px">
         <v-card>
           <v-card-text>
             <v-container>

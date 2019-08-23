@@ -45,7 +45,10 @@ class StartUp {
     }
 
     configureRoutes(): void {
-this.App.use('/api/test', (req,res)=>{res.send('Works')});
+        this.App.use('/api/test', (req, res) => {
+            res.send('Works');
+        });
+
         this.App.use('/api/search', SearchRouterInstance.Router);
     }
 
