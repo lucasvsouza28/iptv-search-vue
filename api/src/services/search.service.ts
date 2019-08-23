@@ -15,14 +15,8 @@ export class SearchService {
         
         let ret: ResultGroupModel[] = [];
 
-        let filename = _.last(url.split('/')) + '.m3u';
+        let filename = this.clearUrl(url) + '.m3u';
         
-        console.log('Filename: ', filename);
-
-        filename = 'AAA_BBB.m3u';
-
-        console.log('Filename: ', filename);
-
         const filePath = await DownloaderServiceInstance.downloadFile(url, filename);                        
         const readFile = promisify(Fs.readFile);
         const content = await readFile(filePath, 'utf8');
@@ -33,6 +27,14 @@ export class SearchService {
         
         return ret;
                 
+    }
+    
+    private clearUrl(url: string): string {
+        let ret = url;
+        let rgx = RegExp('([htp\:\/\?\=\&\.])', 'g');
+        ret = ret.replace(rgx, '');
+        
+        return ret;
     }
 
     private parseContent(query: string, content: string): ResultGroupModel[] {
