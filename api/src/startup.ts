@@ -1,5 +1,6 @@
 import * as express from 'express';
 import { SearchRouterInstance } from './routes/search.router';
+import * as path from 'path';
 
 class StartUp {
 
@@ -17,13 +18,22 @@ class StartUp {
         this.App.use(express.json());
         this.App.use(express.urlencoded({ extended: true }));
                 
-        this.App.use('/js', express.static(__dirname + "/../js"));
-        this.App.use('/css', express.static(__dirname + "/../css"));
-        this.App.use('/img', express.static(__dirname + "/../img"));
-        this.App.use('/fonts', express.static(__dirname + "/../fonts"));
+        // this.App.use('/js', express.static(__dirname + "/../js"));
+        // this.App.use('/css', express.static(__dirname + "/../css"));
+        // this.App.use('/img', express.static(__dirname + "/../img"));
+        // this.App.use('/fonts', express.static(__dirname + "/../fonts"));
 
-	this.App.get('/', (req, res, next) => {
-            res.sendFile('index.html', { root: __dirname + '/../' });
+	    // this.App.get('/', (req, res, next) => {
+        //     res.sendFile('index.html', { root: __dirname + '/../' });
+        // });
+
+        this.App.use('/js', express.static(path.join(__dirname, "../js")));
+        this.App.use('/css', express.static(path.join(__dirname, "../css")));
+        this.App.use('/img', express.static(path.join(__dirname, "/../img")));
+        this.App.use('/fonts', express.static(path.join(__dirname, "/../fonts")));
+
+	    this.App.get('/', (req, res, next) => {
+            res.sendFile('index.html', { root: path.join(__dirname, '../') });
         });
 
         // habilita CORS
