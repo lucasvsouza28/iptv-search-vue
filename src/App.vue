@@ -58,7 +58,7 @@
           <v-list-item
             v-else
             :key="i"
-            @click=""
+            @click="this.showDialog = true"
           >
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
@@ -83,6 +83,29 @@
         </v-row>
       </v-container>
     </v-content>
+    <v-alert v-if="errorMessage" type="error">
+      I'm an error alert.
+    </v-alert>
+
+    <v-row justify="center">
+      <v-dialog v-model="showDialog" persistent max-width="600px">
+        <v-card>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-text-field v-model="dialogUrl" label="Url da lista*" required></v-text-field>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <div class="flex-grow-1"></div>            
+            <v-btn color="blue darken-1" @click="setUrl">Salvar</v-btn>
+          </v-card-actions>
+
+        </v-card>
+      </v-dialog>
+    </v-row>
+
   </v-app>
 </template>
 
@@ -96,22 +119,38 @@ export default Vue.extend({
   components: {
     SearchResult
   },
-  async mounted() {    
+  async mounted() {
+    this.showDialog = !window.localStorage.getItem(this.M3U_URL_KEY);
   },
   methods: {
     doSearch: async function() {
-      const response = await axios.post('http://localhost:3000/api/search', { query: this.query || 'turbo', url: this.url });
+      try {
+        const url = localStorage.getItem(this.M3U_URL_KEY)
+        const response = await axios.post('http://localhost:3000/api/search', { query: this.query || 'turbo', url: url });
 
-      this.searchResult = response.data;
+        this.searchResult = response.data;
+        this.errorMessage = '';
+      } catch (error) {
+        this.errorMessage = 'Ocorreu um erro ao pesquisar: '  + error.message;
+      }
+    },
+    setUrl: function () {
+      localStorage.setItem(this.M3U_URL_KEY, this.dialogUrl);
+      this.showDialog = false;
     }
   },
   data: () => ({
-    query: 'turbo',
-    url: 'http://clubsrv.me/get.php?username=1drM3Cdf3&password=fireurl.co&output=ts&type=m3u_plus',
+    M3U_URL_KEY: 'url_m3u',
+    query: '',
+    dialogUrl: '',
+    //url: 'http://clubsrv.me/get.php?username=1drM3Cdf3&password=fireurl.co&output=ts&type=m3u_plus',
     searchResult: null,
+    errorMessage: '',
+    showDialog: false,
 
     drawer: false,
-      items: [        
+      items: [
+        { text: 'Configurar url', icon: 'mdi-settings' }
       ],
   }),
 });
