@@ -13,6 +13,7 @@
         class="white--text"
         v-model="query"
         v-on:keyup.enter="doSearch"
+        prepend-inner-icon="search"
       ></v-text-field>
       <div class="flex-grow-1"></div>
     </v-app-bar>
@@ -28,45 +29,13 @@
         dense
         class="grey lighten-4"
       >
-        <template v-for="(item, i) in items">
-          <v-row
-            v-if="item.heading"
-            :key="i"
-            align="center"
-          >
-            <v-col cols="6">
-              <v-subheader v-if="item.heading">
-                {{ item.heading }}
-              </v-subheader>
-            </v-col>
-            <v-col
-              cols="6"
-              class="text-right"
-            >
-              <v-btn
-                small
-                text
-              >edit</v-btn>
-            </v-col>
-          </v-row>
-          <v-divider
-            v-else-if="item.divider"
-            :key="i"
-            dark
-            class="my-4"
-          ></v-divider>
-          <v-list-item
-            v-else
-            :key="i"
-            @click="this.showDialog = true"
-          >
+        <template>          
+          <v-list-item @click="showDialogBox">
             <v-list-item-action>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon>settings_applications</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title class="grey--text">
-                {{ item.text }}
-              </v-list-item-title>
+              <v-list-item-title class="grey--text">Configurar url</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </template>
@@ -84,7 +53,7 @@
       </v-container>
     </v-content>
     <v-alert v-if="errorMessage" type="error">
-      I'm an error alert.
+      {{errorMessage}}
     </v-alert>
 
     <v-row justify="center">
@@ -137,21 +106,21 @@ export default Vue.extend({
     setUrl: function () {
       localStorage.setItem(this.M3U_URL_KEY, this.dialogUrl);
       this.showDialog = false;
+    },
+    showDialogBox: function() {
+      this.showDialog = true;
+      this.dialogUrl = localStorage.getItem(this.M3U_URL_KEY);
     }
   },
   data: () => ({
     M3U_URL_KEY: 'url_m3u',
     query: '',
     dialogUrl: '',
-    //url: 'http://clubsrv.me/get.php?username=1drM3Cdf3&password=fireurl.co&output=ts&type=m3u_plus',
     searchResult: null,
     errorMessage: '',
     showDialog: false,
 
-    drawer: false,
-      items: [
-        { text: 'Configurar url', icon: 'mdi-settings' }
-      ],
+    drawer: false,      
   }),
 });
 </script>
