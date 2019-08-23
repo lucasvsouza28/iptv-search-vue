@@ -109,7 +109,7 @@ export default Vue.extend({
     },
     showDialogBox: function() {
       this.showDialog = true;
-      this.dialogUrl = localStorage.getItem(this.M3U_URL_KEY);
+      this.dialogUrl = localStorage.getItem(this.M3U_URL_KEY) || '';
     }
   },
   data: () => ({
