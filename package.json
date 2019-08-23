@@ -14,7 +14,7 @@
     "build:api": "tsc -p ./api/tsconfig.json",
     "serve:api": "tsc -p ./api/tsconfig.json && nodemon ./dist/api/program.js",
     "start": "node ./dist/api/program.js",
-    "postinstall": "npm run build:api && npm run build:ui"
+    "heroku-postbuild": "npm install --no-shrinkwrap && npm run build:api && npm run build:ui"
   },
   "dependencies": {
     "@types/node": "^12.7.2",
