@@ -21,10 +21,10 @@ class StartUp {
 	this.App.use('/css', express.static(__dirname + "../css"));
 	this.App.use('/img', express.static(__dirname + "../img"));
 	this.App.use('/fonts', express.static(__dirname + "../fonts"));
-		
-		this.App.get('/', (req, res, next) => {
-            res.sendFile('index.html', { root: __dirname + '../') });
-        });
+
+	this.App.get('/', function(req,res) {
+		res.sendFile('index.html', { root: __dirname + '../' });
+	});
 
         // habilita CORS
         this.App.use(function(req, res, next) {
