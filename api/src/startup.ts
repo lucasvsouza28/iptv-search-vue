@@ -23,7 +23,7 @@ class StartUp {
 	this.App.use('/fonts', express.static(__dirname + "../fonts"));
 		
 		this.App.get('/', (req, res, next) => {
-            res.sendFile('index.html', { root: __dirname + '../') };
+            res.sendFile('index.html', { root: __dirname + '../') });
         });
 
         // habilita CORS
