@@ -95,7 +95,7 @@ export default Vue.extend({
     doSearch: async function() {
       try {
         const url = localStorage.getItem(this.M3U_URL_KEY)
-        const response = await axios.post('http://localhost:3000/api/search', { query: this.query || 'turbo', url: url });
+        const response = await axios.post('/api/search', { query: this.query || 'turbo', url: url });
 
         this.searchResult = response.data;
         this.errorMessage = '';
