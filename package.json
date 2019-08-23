@@ -10,7 +10,7 @@
     "dev:api": "ts-node-dev --transpileOnly --respawn --project ./api/tsconfig.json ./api/src/program.ts",
     "build:api": "tsc -p ./api/tsconfig.json",
     "serve:api": "tsc -p ./api/tsconfig.json && nodemon ./dist/api/program.js",
-    "start": "node ./dist/api/program.js",
+    "start": "node dist/api/program.js",
     "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build:api && npm run build:ui"
   },
   "dependencies": {
