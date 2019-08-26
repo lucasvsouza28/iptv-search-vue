@@ -48,7 +48,7 @@
         class="grey lighten-4"
       >
         <v-row align="center">
-          <SearchResult :data="searchResult"></SearchResult>
+          <SearchResult :data="searchResult" :loading="loading"></SearchResult>
         </v-row>
       </v-container>
     </v-content>
@@ -94,13 +94,17 @@ export default Vue.extend({
   methods: {
     doSearch: async function() {
       try {
+        this.loading = true;
+
         const url = localStorage.getItem(this.M3U_URL_KEY)
         const response = await axios.post('/api/search', { query: this.query || 'turbo', url: url });
 
         this.searchResult = response.data;
-        this.errorMessage = '';
+        this.errorMessage = '';        
       } catch (error) {
         this.errorMessage = 'Ocorreu um erro ao pesquisar: '  + error.message;
+      } finally {
+        this.loading = false;
       }
     },
     setUrl: function () {
@@ -119,7 +123,7 @@ export default Vue.extend({
     searchResult: null,
     errorMessage: '',
     showDialog: false,
-
+    loading: false,
     drawer: false,      
   }),
 });

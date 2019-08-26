@@ -2,6 +2,7 @@
     <v-row align="center" justify="center" v-if="!data || (data && !data.groups.length)">
         <v-icon>sentiment_dissatisfied</v-icon> Nenhum item encontrado
     </v-row>
+    <v-progress-circular v-else-if="loading" indeterminate="true"></v-progress-circular>
     <div style="width: 100%;" v-else>
         <v-row v-for="(group, i) in data.groups" :key="`group-${i}`">
         <v-subheader class="headline">{{ group.groupName }}</v-subheader>
@@ -36,7 +37,7 @@
 import Vue from 'vue'
 export default Vue.extend({
     name: 'SearchResult',
-    props: ["data"],
+    props: ['data', 'loading'],
     methods: {        
     }
 })
