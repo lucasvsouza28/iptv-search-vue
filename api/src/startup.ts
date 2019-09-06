@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { SearchRouterInstance } from './routes/search.router';
 import * as path from 'path';
+const history = require('connect-history-api-fallback');
 
 class StartUp {
 
@@ -32,9 +33,11 @@ class StartUp {
         this.App.use('/img', express.static(path.join(__dirname, "/../img")));
         this.App.use('/fonts', express.static(path.join(__dirname, "/../fonts")));
 
-	    this.App.get('/', (req, res, next) => {
-            res.sendFile('index.html', { root: path.join(__dirname, '../') });
-        });
+	    // this.App.get('/', (req, res, next) => {
+        //     res.sendFile('index.html', { root: path.join(__dirname, '../') });
+        // });
+
+        this.App.use(history());
 
         // habilita CORS
         this.App.use(function(req, res, next) {
