@@ -33,11 +33,11 @@ class StartUp {
         this.App.use('/img', express.static(path.join(__dirname, "/../img")));
         this.App.use('/fonts', express.static(path.join(__dirname, "/../fonts")));
 
-	    this.App.get('/', (req, res, next) => {
-            res.sendFile('index.html', { root: path.join(__dirname, '../') });
-        });
+	    // this.App.get('/', (req, res, next) => {
+        //     res.sendFile('index.html', { root: path.join(__dirname, '../') });
+        // });
 
-        this.App.use(history());
+        // this.App.use(history());
 
         // habilita CORS
         this.App.use(function(req, res, next) {
@@ -53,6 +53,12 @@ class StartUp {
         });
 
         this.App.use('/api/search', SearchRouterInstance.Router);
+
+        this.App.use((req, res, next) => {
+            res.sendFile('index.html', { root: path.join(__dirname, '../') });
+        });
+
+        this.App.use(history());
     }
 
 }
