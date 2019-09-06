@@ -33,9 +33,9 @@ class StartUp {
         this.App.use('/img', express.static(path.join(__dirname, "/../img")));
         this.App.use('/fonts', express.static(path.join(__dirname, "/../fonts")));
 
-	    // this.App.get('/', (req, res, next) => {
-        //     res.sendFile('index.html', { root: path.join(__dirname, '../') });
-        // });
+	    this.App.get('/', (req, res, next) => {
+            res.sendFile('index.html', { root: path.join(__dirname, '../') });
+        });
 
         this.App.use(history());
 
