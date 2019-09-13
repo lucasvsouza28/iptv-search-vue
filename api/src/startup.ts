@@ -37,7 +37,7 @@ class StartUp {
     }
 
     configureRoutes(): void {
-	this.App.use(express.static(path.join(__dirname, "../dist")));
+	this.App.use(express.static(path.join(__dirname, "../")));
 
         this.App.get("*", (req, res) => {
 	    res.sendFile(path.join(__dirname, "../index.html"));
