@@ -18,6 +18,7 @@ class StartUp {
     middlewares(): void {
         this.App.use(express.json());
         this.App.use(express.urlencoded({ extended: true }));
+	this.App.use(express.static(path.join(__dirname, "../")));
                 
 	// this.App.get('/', (req, res, next) => {
         //     res.sendFile('index.html', { root: __dirname + '/../' });
@@ -42,9 +43,7 @@ class StartUp {
         });
 
         this.App.use('/api/search', SearchRouterInstance.Router);
-	    
-	this.App.use(express.static(path.join(__dirname, "../")));
-
+	
         this.App.get("*", (req, res) => {
 	    res.sendFile(path.join(__dirname, "../index.html"));
 	});
