@@ -39,32 +39,45 @@ export class SearchService {
 
     private parseContent(query: string, content: string): ResultGroupModel[] {
         const lines = content.split('\n');
-        //let ret: ResultGroupModel[] = [];
-        let ret: {[Key: string]: ResultGroupModel} = {};
+        let dicGroups: {[Key: string]: ResultGroupModel} = {};
+        const rgx = new RegExp('\#extinf.+tvg-id\=\"(?<id>.+).+tvg-logo\=\"(?<logo>.+)\".+group-title\=\"(?<group>.+)\"\,(?<name>.+)', 'gmi');
 
         lines.forEach((line) => {
-            if (line.indexOf('#EXTINF') >= 0) {
-                const arrTvg = line.split('tvg-');
-                const part2 = arrTvg[arrTvg.length-1];
-                const arrGt = part2.split('group-title')[1];
-                const group = arrGt.replace("=", "").split(',')[0].replace("\"", "").replace("\"", "");
-                const name = arrTvg[2].replace('name=', '').replace('\"', '').replace("\"", "");
-                const logo = part2.split('group-title')[0].replace('logo=', '').replace('\"', '').replace("\"", "");
-                
-                const groupMatch = group.toUpperCase().indexOf(query.toUpperCase()) >= 0;
-                const nameMatch = name.toUpperCase().indexOf(query.toUpperCase()) >= 0;
+            const match = rgx.exec(line);
+
+            if (match) {
+                const groupMatch = match.groups.group.toUpperCase().indexOf(query.toUpperCase()) >= 0;
+                const nameMatch = match.groups.name.toUpperCase().indexOf(query.toUpperCase()) >= 0;
 
                 if (groupMatch || nameMatch) {
-                    ret[group] = ret[group] || new ResultGroupModel(group);
-                    ret[group].Items = ret[group].Items || [];
-                    ret[group].Items.push(new ResultModel(name, group, logo));
+                    dicGroups[match.groups.group] = dicGroups[match.groups.group] || new ResultGroupModel(match.groups.group);
+                    dicGroups[match.groups.group].Items = dicGroups[match.groups.group].Items || [];
+                    dicGroups[match.groups.group].Items.push(new ResultModel(match.groups.name, match.groups.group, match.groups.logo));
                 }
-            }
+            }            
+            // if (line.indexOf('#EXTINF') >= 0) {
+            //     const arrTvg = line.split('tvg-');
+            //     const part2 = arrTvg[arrTvg.length-1];
+            //     const arrGt = part2.split('group-title')[1];
+            //     const group = arrGt.replace("=", "").split(',')[0].replace("\"", "").replace("\"", "");
+            //     const name = arrTvg[2].replace('name=', '').replace('\"', '').replace("\"", "");
+            //     const logo = part2.split('group-title')[0].replace('logo=', '').replace('\"', '').replace("\"", "");
+                
+            //     const groupMatch = group.toUpperCase().indexOf(query.toUpperCase()) >= 0;
+            //     const nameMatch = name.toUpperCase().indexOf(query.toUpperCase()) >= 0;
+
+            //     if (groupMatch || nameMatch) {
+            //         ret[group] = ret[group] || new ResultGroupModel(group);
+            //         ret[group].Items = ret[group].Items || [];
+            //         ret[group].Items.push(new ResultModel(name, group, logo));
+            //     }
+            // }
         });
 
-        let rr: ResultGroupModel[] = [];
-        Object.keys(ret).forEach(key =>{ rr.push(ret[key]); })
-        return rr;
+        let ret: ResultGroupModel[] = [];
+        Object.keys(dicGroups).forEach(key =>{ ret.push(dicGroups[key]); });
+
+        return ret;
     }
 }
 
