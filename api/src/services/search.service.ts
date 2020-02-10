@@ -40,7 +40,7 @@ export class SearchService {
     private parseContent(query: string, content: string): ResultGroupModel[] {
         const lines = content.split('\n');
         let dicGroups: {[Key: string]: ResultGroupModel} = {};
-        const rgx = new RegExp('\#extinf.+tvg-id\=\"(?<id>.+).+tvg-logo\=\"(?<logo>.+)\".+group-title\=\"(?<group>.+)\"\,(?<name>.+)', 'gmi');
+        const rgx = new RegExp('\#extinf.+tvg-logo\=\"(?<logo>.+)\".+group-title\=\"(?<group>.+)\"\,(?<name>.+)', 'gmi');
 
         lines.forEach((line) => {
             const match = rgx.exec(line);
