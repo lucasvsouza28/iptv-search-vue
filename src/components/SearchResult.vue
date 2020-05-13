@@ -14,13 +14,14 @@
                             class="d-inline-flex ml-4"
                             v-for="(item, j) in group.Items" :key="`item-${j}`"
                             width="200px"
+                            margin="5px"
                             tile
                         >
                             <v-img
                             v-if="item.imgUrl"
                             class="white--text"
                             gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
-                            height="100px"
+                            min-height="100px"
                             v-bind:src="item.imgUrl"
                             >
                             <v-card-title class="align-end fill-height">{{ item.title }}</v-card-title>
