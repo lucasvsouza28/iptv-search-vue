@@ -19,7 +19,7 @@ export class SearchService {
 
         console.log('--> Filename: ', filename);
         
-        const filePath = await DownloaderServiceInstance.downloadFile(url, filename);                        
+        const filePath = await DownloaderServiceInstance.downloadFile(url, filename, true);
         const readFile = promisify(Fs.readFile);        
         const content = await readFile(filePath, 'utf8');
 
