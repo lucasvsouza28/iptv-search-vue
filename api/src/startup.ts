@@ -18,16 +18,7 @@ class StartUp {
     middlewares(): void {
         this.App.use(express.json());
         this.App.use(express.urlencoded({ extended: true }));
-	this.App.use(express.static(path.join(__dirname, "../")));
-                
-	// this.App.get('/', (req, res, next) => {
-        //     res.sendFile('index.html', { root: __dirname + '/../' });
-        // });
-
-        //this.App.use('/js', express.static(path.join(__dirname, "../js")));
-        //this.App.use('/css', express.static(path.join(__dirname, "../css")));
-        //this.App.use('/img', express.static(path.join(__dirname, "/../img")));
-        //this.App.use('/fonts', express.static(path.join(__dirname, "/../fonts")));
+        this.App.use(express.static(path.join(__dirname, "../")));
 
         // habilita CORS
         this.App.use(function(req, res, next) {
@@ -37,7 +28,7 @@ class StartUp {
           });
     }
 
-    configureRoutes(): void {    
+    configureRoutes(): void {
         this.App.use('/api/test', (req, res) => {
             res.send('Works');
         });

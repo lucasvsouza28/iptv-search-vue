@@ -13,7 +13,9 @@ export class DownloaderService {
             return new Promise((resolve, reject) => { resolve(path); });
 
         const writer = Fs.createWriteStream(path);
-    
+
+        console.log('Tentando baixar m3u da url: ' + url);
+        
         const response = await Axios({
           url,
           method: 'GET',
