@@ -16,9 +16,11 @@ export class SearchService {
         let ret: ResultGroupModel[] = [];
 
         let filename = this.clearUrl(url) + '.m3u';
+
+        console.log('--> Filename: ', filename);
         
         const filePath = await DownloaderServiceInstance.downloadFile(url, filename);                        
-        const readFile = promisify(Fs.readFile);
+        const readFile = promisify(Fs.readFile);        
         const content = await readFile(filePath, 'utf8');
 
         if (content) {

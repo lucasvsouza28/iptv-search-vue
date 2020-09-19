@@ -23,8 +23,16 @@ export class DownloaderService {
         response.data.pipe(writer)
       
         return new Promise((resolve, reject) => {
-          writer.on('finish', () => { resolve(path); });
-          writer.on('error', reject);
+          writer.on('finish', (err, file) => {
+            if (err) reject(err);
+            
+            console.log('Arquivo baixado com sucesso');
+            resolve(path);
+          });
+          writer.on('error', (err) => {
+            console.log('Erro ao baixar arquivo: ' + err.message);
+            reject();
+          });
         })
       }
 
