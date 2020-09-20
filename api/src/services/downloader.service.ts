@@ -19,7 +19,9 @@ export class DownloaderService {
         const response = await Axios({
           url,
           method: 'GET',
-          responseType: 'stream'
+          responseType: 'stream',
+          withCredentials: true,
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
       
         response.data.pipe(writer)
