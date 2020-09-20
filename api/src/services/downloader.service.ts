@@ -21,6 +21,7 @@ export class DownloaderService {
           method: 'GET',
           responseType: 'stream',
           withCredentials: true,
+          crossdomain : true,
           headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
       
