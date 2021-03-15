@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { SearchRouterInstance } from './routes/search.router';
 import * as path from 'path';
-import cors from 'cors';
+const cors = require('cors');
 const history = require('connect-history-api-fallback');
 
 class StartUp {
